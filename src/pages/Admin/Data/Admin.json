@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ADM-01",
+    "name": "Admin User",
+    "email": "admin@company.com",
+    "password": "admin123",
+    "role": "Super Admin",
+    "assignedLocations": ["LOC-01", "LOC-02", "LOC-03", "LOC-04", "LOC-05"]
+  },
+  {
+    "id": "ADM-02",
+    "name": "Ramesh Patil",
+    "email": "ramesh.patil@company.com",
+    "password": "ramesh123",
+    "role": "Location Admin",
+    "assignedLocations": ["LOC-01"]
+  },
+  {
+    "id": "ADM-03",
+    "name": "Sneha Kapoor",
+    "email": "sneha.kapoor@company.com",
+    "password": "sneha123",
+    "role": "Location Admin",
+    "assignedLocations": ["LOC-02", "LOC-03"]
+  },
+  {
+    "id": "ADM-04",
+    "name": "Vikram Singh",
+    "email": "vikram.singh@company.com",
+    "password": "vikram123",
+    "role": "Location Admin",
+    "assignedLocations": ["LOC-04"]
+  }
+]

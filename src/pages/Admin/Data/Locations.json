@@ -1,0 +1,37 @@
+[
+  {
+    "id": "LOC-01",
+    "name": "Mumbai HQ",
+    "address": "Bandra Kurla Complex, Mumbai, Maharashtra 400051",
+    "active": true,
+    "adminNotes": "Main headquarters with full capacity. Preferred for client meetings."
+  },
+  {
+    "id": "LOC-02",
+    "name": "Delhi Office",
+    "address": "Connaught Place, New Delhi, Delhi 110001",
+    "active": true,
+    "adminNotes": "Regional office. Limited parking available."
+  },
+  {
+    "id": "LOC-03",
+    "name": "Bangalore Tech Park",
+    "address": "Whitefield, Bangalore, Karnataka 560066",
+    "active": true,
+    "adminNotes": "Technology center. Enhanced security protocols in place."
+  },
+  {
+    "id": "LOC-04",
+    "name": "Pune Branch",
+    "address": "Hinjewadi IT Park, Pune, Maharashtra 411057",
+    "active": true,
+    "adminNotes": "Development center. Visitor parking on basement level."
+  },
+  {
+    "id": "LOC-05",
+    "name": "Hyderabad Hub",
+    "address": "HITEC City, Hyderabad, Telangana 500081",
+    "active": false,
+    "adminNotes": "Temporarily closed for renovation. Expected reopening in March 2026."
+  }
+]
