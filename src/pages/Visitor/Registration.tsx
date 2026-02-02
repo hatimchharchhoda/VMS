@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import QRCode from "qrcode";
+import { useNavigate } from "react-router-dom";
 
 interface VisitRequest {
   id: string;
@@ -22,13 +23,15 @@ interface VisitRequest {
   createdAt: string;
 }
 
-const VisitorHome = () => {
+const VisitorRegistration = () => {
+  const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [user, setUser] = useState<any>(null);
   const [showQR, setShowQR] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
   const [currentRequestId, setCurrentRequestId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [templateLoaded, setTemplateLoaded] = useState(false);
 
   const [formData, setFormData] = useState({
     visitorName: "",
@@ -59,11 +62,29 @@ const VisitorHome = () => {
     try {
       const parsed = JSON.parse(userData);
       setUser(parsed);
-      setFormData((prev) => ({
-        ...prev,
-        visitorName: parsed.name,
-        email: parsed.email,
-      }));
+
+      // Check if there's a template to load
+      const template = localStorage.getItem("visitTemplate");
+      
+      if (template) {
+        // Load template data
+        const templateData = JSON.parse(template);
+        setFormData((prev) => ({
+          ...prev,
+          ...templateData,
+          // Ensure user data is still from current user
+          visitorName: parsed.name,
+          email: parsed.email,
+        }));
+        setTemplateLoaded(true);
+      } else {
+        // Just set user data
+        setFormData((prev) => ({
+          ...prev,
+          visitorName: parsed.name,
+          email: parsed.email,
+        }));
+      }
     } catch (error) {
       console.error("Error parsing user data:", error);
       window.location.replace("/");
@@ -178,6 +199,9 @@ const VisitorHome = () => {
     existingRequests.push(visitRequest);
     localStorage.setItem("visitRequests", JSON.stringify(existingRequests));
 
+    // Clear the template after successful submission
+    localStorage.removeItem("visitTemplate");
+
     setQrCodeUrl(qrUrl);
     setCurrentRequestId(requestId);
     setShowQR(true);
@@ -186,6 +210,7 @@ const VisitorHome = () => {
   const handleLogout = () => {
     localStorage.removeItem("role");
     localStorage.removeItem("user");
+    localStorage.removeItem("visitTemplate");
     window.location.replace("/");
   };
 
@@ -194,6 +219,11 @@ const VisitorHome = () => {
     link.download = `visitor-pass-${currentRequestId}.png`;
     link.href = qrCodeUrl;
     link.click();
+  };
+
+  const goBackToHome = () => {
+    localStorage.removeItem("visitTemplate");
+    navigate("/visitor/home");
   };
 
   if (isLoading) {
@@ -262,9 +292,14 @@ const VisitorHome = () => {
             Download QR Code
           </button>
 
+          <button onClick={goBackToHome} style={styles.homeBtn}>
+            ← Back to Home
+          </button>
+
           <button
             onClick={() => {
               setShowQR(false);
+              setTemplateLoaded(false);
               setFormData({
                 visitorName: user?.name || "",
                 email: user?.email || "",
@@ -302,32 +337,49 @@ const VisitorHome = () => {
               <p style={styles.brandSubtitle}>Registration Portal</p>
             </div>
           </div>
-          <button onClick={handleLogout} style={styles.logoutBtn}>
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              style={{ marginRight: "6px" }}
-            >
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              <polyline points="16 17 21 12 16 7" />
-              <line x1="21" y1="12" x2="9" y2="12" />
-            </svg>
-            Logout
-          </button>
+          <div style={styles.navActions}>
+            <button onClick={goBackToHome} style={styles.backBtn}>
+              ← Back to Home
+            </button>
+            <button onClick={handleLogout} style={styles.logoutBtn}>
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                style={{ marginRight: "6px" }}
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+              Logout
+            </button>
+          </div>
         </div>
       </div>
 
       <div style={styles.formWrapper}>
         <div style={styles.formContainer}>
           <div style={styles.formHeader}>
-            <h2 style={styles.formTitle}>New Visit Request</h2>
+            <h2 style={styles.formTitle}>
+              {templateLoaded ? "📋 Quick Re-Registration" : "New Visit Request"}
+            </h2>
             <p style={styles.formDescription}>
-              Please fill in all required details to submit your visit request
+              {templateLoaded 
+                ? "Form pre-filled with previous visit details. Update as needed and submit."
+                : "Please fill in all required details to submit your visit request"}
             </p>
+            {templateLoaded && (
+              <div style={styles.templateBanner}>
+                <span style={styles.templateIcon}>✨</span>
+                <span style={styles.templateText}>
+                  Template loaded! Review and update the details below.
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Personal Information */}
@@ -618,7 +670,7 @@ const VisitorHome = () => {
   );
 };
 
-export default VisitorHome;
+export default VisitorRegistration;
 
 const styles: { [key: string]: React.CSSProperties } = {
   /* ================= PAGE LAYOUT ================= */
@@ -696,6 +748,22 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: "#64748b",
     fontWeight: "500",
   },
+  navActions: {
+    display: "flex",
+    gap: "12px",
+    alignItems: "center",
+  },
+  backBtn: {
+    padding: "10px 20px",
+    background: "#ffffff",
+    border: "1px solid #cbd5e1",
+    borderRadius: "8px",
+    color: "#475569",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "600",
+    transition: "all 0.2s ease",
+  },
   logoutBtn: {
     padding: "10px 20px",
     background: "#ffffff",
@@ -748,6 +816,24 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: "15px",
     color: "#64748b",
     lineHeight: "1.6",
+  },
+  templateBanner: {
+    marginTop: "16px",
+    padding: "14px 18px",
+    background: "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)",
+    borderRadius: "10px",
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    border: "1px solid #93c5fd",
+  },
+  templateIcon: {
+    fontSize: "20px",
+  },
+  templateText: {
+    fontSize: "14px",
+    color: "#1e40af",
+    fontWeight: "600",
   },
 
   /* ================= SECTIONS ================= */
@@ -978,6 +1064,20 @@ const styles: { [key: string]: React.CSSProperties } = {
     letterSpacing: "0.01em",
     boxShadow:
       "0 4px 6px -1px rgba(5, 150, 105, 0.4), 0 2px 4px -1px rgba(5, 150, 105, 0.3)",
+  },
+  homeBtn: {
+    width: "100%",
+    padding: "14px",
+    background: "#ffffff",
+    color: "#475569",
+    border: "1.5px solid #cbd5e1",
+    borderRadius: "10px",
+    fontSize: "15px",
+    fontWeight: "700",
+    cursor: "pointer",
+    marginBottom: "12px",
+    transition: "all 0.3s ease",
+    letterSpacing: "0.01em",
   },
   newRequestBtn: {
     width: "100%",
