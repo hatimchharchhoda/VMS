@@ -1,0 +1,15 @@
+[
+   {
+      "id": "del001",
+      "visitorId": "vis001",
+      "visitorName": "David Chen",
+      "originalHostId": "u002",
+      "originalHostName": "Alice Johnson",
+      "delegatedToHostId": "u003",
+      "delegatedToHostName": "Bob Martinez",
+      "reason": "Alice Johnson in external meeting",
+      "status": "active",
+      "approvedByAdmin": true,
+      "createdAt": "2026-02-22T09:00:00Z"
+   }
+]

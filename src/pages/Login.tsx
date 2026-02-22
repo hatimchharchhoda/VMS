@@ -1,270 +1,114 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
 
-type Role = "visitor" | "host";
+const DEMO_CREDS = [
+  { role: 'Admin', email: 'admin@enterprise.com', password: 'admin123', badge: 'ADMIN', color: '' },
+  { role: 'Host', email: 'host1@enterprise.com', password: 'host123', badge: 'HOST', color: '' },
+  { role: 'Visitor', email: 'visitor1@gmail.com', password: 'visitor123', badge: 'VISITOR', color: 'linear-gradient(135deg, #10b981, #3b82f6)' },
+];
 
-interface UserForm {
-  name: string;
-  email: string;
-}
-
-const DEMO_CREDENTIALS = {
-  visitor: {
-    name: "Rahul Sharma",
-    email: "rahul@gmail.com",
-  },
-  host: {
-    name: "Amit Verma",
-    email: "amit.verma@company.com",
-  },
-};
-
-const Login = () => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPw, setShowPw] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const [role, setRole] = useState<Role>("visitor");
-  const [form, setForm] = useState<UserForm>({
-    name: "",
-    email: "",
-  });
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setTimeout(() => {
+      const result = login(email, password);
+      if (result.success) {
+        const role = localStorage.getItem('vms_role');
+        const dest = role === 'admin' ? '/admin/dashboard' : role === 'host' ? '/host/dashboard' : '/visitor/dashboard';
+        navigate(dest, { replace: true });
+      } else {
+        setError(result.message);
+      }
+      setLoading(false);
+    }, 500);
+  };
 
-  const handleLogin = () => {
-    if (!form.name || !form.email) {
-      alert("Please fill all fields");
-      return;
-    }
-
-    localStorage.setItem("role", role);
-    localStorage.setItem("user", JSON.stringify(form));
-
-    role === "host" ? navigate("/host") : navigate("/visitor/home");
+  const fillCred = (cred: typeof DEMO_CREDS[0]) => {
+    setEmail(cred.email);
+    setPassword(cred.password);
+    setError('');
   };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        {/* Header */}
-        <div style={styles.header}>
-          <div style={styles.logo}>🏢</div>
-          <h1 style={styles.heading}>Visitor Management System</h1>
-          <p style={styles.subheading}>Secure access for visitors and hosts</p>
-        </div>
+    <div className="login-page">
+      <div className="login-card">
+        <div className="login-logo">🏢</div>
+        <h1 className="login-title">Enterprise VMS</h1>
+        <p className="login-subtitle">Visitor Management & Access Control Platform</p>
 
-        {/* Form */}
-        <div style={styles.form}>
-          <div style={styles.field}>
-            <label style={styles.label}>Full Name</label>
-            <input
-              style={styles.input}
-              placeholder="Enter your full name"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-            />
-          </div>
+        <form className="login-form" onSubmit={handleLogin}>
+          {error && <div className="login-error">{error}</div>}
 
-          <div style={styles.field}>
-            <label style={styles.label}>Email Address</label>
-            <input
-              style={styles.input}
-              placeholder="you@example.com"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-            />
-          </div>
-
-          <div style={styles.field}>
-            <label style={styles.label}>Login As</label>
-            <select
-              style={styles.select}
-              value={role}
-              onChange={(e) => setRole(e.target.value as Role)}
-            >
-              <option value="visitor">Visitor</option>
-              <option value="host">Host</option>
-            </select>
-          </div>
-
-          <button style={styles.button} onClick={handleLogin}>
-            Continue
-          </button>
-          {/* Demo Credentials */}
-          <div style={styles.demoBox}>
-            <h4 style={styles.demoTitle}>Demo Credentials</h4>
-
-            <div style={styles.demoRow}>
-              <span style={styles.demoRole}>
-                {role === "visitor" ? "Visitor" : "Host"}
-              </span>
-
-              <div style={styles.demoText}>
-                <div>{DEMO_CREDENTIALS[role].name}</div>
-                <div style={styles.demoEmail}>
-                  {DEMO_CREDENTIALS[role].email}
-                </div>
-              </div>
+          <div className="form-group">
+            <label className="form-label">Email Address</label>
+            <div className="search-bar">
+              <Mail size={14} color="var(--text-muted)" />
+              <input
+                type="email"
+                placeholder="you@enterprise.com"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                autoComplete="email"
+              />
             </div>
           </div>
+
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <div className="search-bar">
+              <Lock size={14} color="var(--text-muted)" />
+              <input
+                type={showPw ? 'text' : 'password'}
+                placeholder="Enter password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+              />
+              <button type="button" onClick={() => setShowPw(v => !v)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', padding: 0 }}>
+                {showPw ? <EyeOff size={14} /> : <Eye size={14} />}
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" className="btn btn-primary btn-full btn-lg" disabled={loading}>
+            {loading ? <span className="spinner"></span> : '🔐'} {loading ? 'Signing in...' : 'Sign In'}
+          </button>
+        </form>
+
+        {/* Demo Credentials */}
+        <div className="demo-creds">
+          <div className="demo-creds-title">Demo Credentials</div>
+          {DEMO_CREDS.map((cred, i) => (
+            <div key={i} className="demo-cred-item" onClick={() => fillCred(cred)}>
+              <div className="demo-cred-role-badge">{cred.badge}</div>
+              <div className="demo-cred-info">
+                <div className="demo-cred-email">{cred.email}</div>
+                <div className="demo-cred-pass">Password: {cred.password}</div>
+              </div>
+              <span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Click to fill →</span>
+            </div>
+          ))}
         </div>
 
-        {/* Footer */}
-        <div style={styles.footer}>© 2026 Visitor Management System</div>
+        <div style={{ textAlign: 'center', marginTop: 20, fontSize: 11, color: 'var(--text-muted)' }}>
+          © 2026 Enterprise VMS · Frontend Demo
+        </div>
       </div>
     </div>
   );
 };
 
 export default Login;
-
-/* ====================== STYLES ====================== */
-
-const styles: { [key: string]: React.CSSProperties } = {
-  page: {
-    minHeight: "100vh",
-    background: "linear-gradient(135deg, #c2d1f5 0%, #e5efff 100%)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "20px",
-  },
-
-  card: {
-    width: "420px",
-    background: "#ffffff",
-    borderRadius: "16px",
-    padding: "36px",
-    boxShadow: "0 20px 40px rgba(15, 23, 42, 0.25)",
-    display: "flex",
-    flexDirection: "column",
-  },
-
-  header: {
-    textAlign: "center",
-    marginBottom: "28px",
-  },
-
-  logo: {
-    width: "56px",
-    height: "56px",
-    borderRadius: "14px",
-    background: "linear-gradient(135deg, #2563eb, #7c3aed)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "26px",
-    margin: "0 auto 14px",
-    color: "#fff",
-  },
-
-  heading: {
-    margin: 0,
-    fontSize: "22px",
-    fontWeight: 700,
-    color: "#0f172a",
-  },
-
-  subheading: {
-    marginTop: "6px",
-    fontSize: "14px",
-    color: "#64748b",
-  },
-
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "18px",
-  },
-
-  field: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "6px",
-  },
-
-  label: {
-    fontSize: "13px",
-    fontWeight: 600,
-    color: "#334155",
-  },
-
-  input: {
-    padding: "12px 14px",
-    borderRadius: "8px",
-    border: "1.5px solid #cbd5e1",
-    fontSize: "14px",
-    outline: "none",
-  },
-
-  select: {
-    padding: "12px 14px",
-    borderRadius: "8px",
-    border: "1.5px solid #cbd5e1",
-    fontSize: "14px",
-    cursor: "pointer",
-  },
-
-  button: {
-    marginTop: "10px",
-    padding: "14px",
-    borderRadius: "10px",
-    border: "none",
-    background: "linear-gradient(135deg, #2563eb, #7c3aed)",
-    color: "#ffffff",
-    fontSize: "15px",
-    fontWeight: 700,
-    cursor: "pointer",
-  },
-
-  footer: {
-    marginTop: "24px",
-    textAlign: "center",
-    fontSize: "12px",
-    color: "#94a3b8",
-  },
-  demoBox: {
-    marginTop: "20px",
-    padding: "14px",
-    background: "#f8fafc",
-    borderRadius: "10px",
-    border: "1px dashed #cbd5e1",
-  },
-
-  demoTitle: {
-    margin: "0 0 10px",
-    fontSize: "13px",
-    fontWeight: 700,
-    color: "#334155",
-    textTransform: "uppercase",
-    letterSpacing: "0.05em",
-  },
-
-  demoRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: "12px",
-    marginBottom: "8px",
-  },
-
-  demoRole: {
-    minWidth: "60px",
-    fontSize: "12px",
-    fontWeight: 700,
-    color: "#2563eb",
-  },
-
-  demoText: {
-    fontSize: "13px",
-    color: "#334155",
-  },
-
-  demoEmail: {
-    fontSize: "12px",
-    color: "#64748b",
-  },
-
-  divider: {
-    height: "1px",
-    background: "#e2e8f0",
-    margin: "8px 0",
-  },
-};

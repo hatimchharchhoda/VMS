@@ -1,0 +1,82 @@
+[
+   {
+      "id": "zone001",
+      "name": "Reception & Lobby",
+      "code": "LOBBY",
+      "locationId": "loc001",
+      "building": "bldg001",
+      "floor": "G",
+      "securityLevel": "low",
+      "description": "Main reception area open to all visitors"
+   },
+   {
+      "id": "zone002",
+      "name": "Floor 1 - General Office",
+      "code": "F1-GEN",
+      "locationId": "loc001",
+      "building": "bldg001",
+      "floor": "1",
+      "securityLevel": "medium",
+      "description": "General office space"
+   },
+   {
+      "id": "zone003",
+      "name": "Floor 2 - Engineering",
+      "code": "F2-ENG",
+      "locationId": "loc001",
+      "building": "bldg001",
+      "floor": "2",
+      "securityLevel": "medium",
+      "description": "Engineering department"
+   },
+   {
+      "id": "zone004",
+      "name": "Floor 3 - Executive",
+      "code": "F3-EXEC",
+      "locationId": "loc001",
+      "building": "bldg001",
+      "floor": "3",
+      "securityLevel": "high",
+      "description": "Executive floor - restricted"
+   },
+   {
+      "id": "zone005",
+      "name": "Server Room",
+      "code": "SRV-RM",
+      "locationId": "loc001",
+      "building": "bldg001",
+      "floor": "B1",
+      "securityLevel": "critical",
+      "description": "Data center - highly restricted"
+   },
+   {
+      "id": "zone006",
+      "name": "Meeting Rooms Block A",
+      "code": "MTG-A",
+      "locationId": "loc001",
+      "building": "bldg002",
+      "floor": "1",
+      "securityLevel": "low",
+      "description": "Conference rooms A1-A10"
+   },
+   {
+      "id": "zone007",
+      "name": "Loading Dock",
+      "code": "DOCK",
+      "locationId": "loc001",
+      "building": "bldg002",
+      "floor": "G",
+      "securityLevel": "medium",
+      "description": "Vendor/delivery entry"
+   },
+   {
+      "id": "zone008",
+      "name": "Research Lab Alpha",
+      "code": "LAB-A",
+      "locationId": "loc002",
+      "building": "bldg003",
+      "floor": "2",
+      "securityLevel": "critical",
+      "description": "R&D lab - biometric only"
+   }
+]

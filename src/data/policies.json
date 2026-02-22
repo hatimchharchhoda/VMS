@@ -1,0 +1,68 @@
+[
+   {
+      "id": "pol001",
+      "name": "Standard Business Hours Policy",
+      "description": "Default policy for regular business visitors",
+      "allowedTimeWindow": {
+         "start": "08:00",
+         "end": "18:00"
+      },
+      "maxVisitDuration": 480,
+      "antiPassback": true,
+      "autoExpiry": true,
+      "reEntryAllowed": false,
+      "blacklistCheck": true,
+      "escortRequired": false,
+      "applicableZones": [
+         "zone001",
+         "zone002",
+         "zone003",
+         "zone006"
+      ],
+      "createdAt": "2024-01-01T00:00:00Z",
+      "active": true
+   },
+   {
+      "id": "pol002",
+      "name": "High Security Policy",
+      "description": "Strict policy for server room and executive zones",
+      "allowedTimeWindow": {
+         "start": "06:00",
+         "end": "22:00"
+      },
+      "maxVisitDuration": 120,
+      "antiPassback": true,
+      "autoExpiry": true,
+      "reEntryAllowed": false,
+      "blacklistCheck": true,
+      "escortRequired": true,
+      "applicableZones": [
+         "zone004",
+         "zone005",
+         "zone008"
+      ],
+      "createdAt": "2024-01-01T00:00:00Z",
+      "active": true
+   },
+   {
+      "id": "pol003",
+      "name": "Vendor Access Policy",
+      "description": "Policy for vendor and contractor access",
+      "allowedTimeWindow": {
+         "start": "06:00",
+         "end": "20:00"
+      },
+      "maxVisitDuration": 600,
+      "antiPassback": false,
+      "autoExpiry": true,
+      "reEntryAllowed": true,
+      "blacklistCheck": true,
+      "escortRequired": false,
+      "applicableZones": [
+         "zone001",
+         "zone007"
+      ],
+      "createdAt": "2024-01-01T00:00:00Z",
+      "active": true
+   }
+]

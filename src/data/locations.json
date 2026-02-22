@@ -1,0 +1,27 @@
+[
+   {
+      "id": "loc001",
+      "name": "Headquarters",
+      "code": "HQ",
+      "address": "100 Enterprise Blvd, New York, NY 10001",
+      "city": "New York",
+      "buildings": [
+         "bldg001",
+         "bldg002"
+      ],
+      "active": true,
+      "adminNotes": "Main campus - full security protocol active"
+   },
+   {
+      "id": "loc002",
+      "name": "Research Center",
+      "code": "RC",
+      "address": "250 Innovation Drive, San Jose, CA 95110",
+      "city": "San Jose",
+      "buildings": [
+         "bldg003"
+      ],
+      "active": true,
+      "adminNotes": "High-security zone - biometric required"
+   }
+]

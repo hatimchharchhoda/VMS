@@ -1,0 +1,80 @@
+[
+   {
+      "id": "scan001",
+      "visitorId": "vis001",
+      "visitorName": "David Chen",
+      "barcodeId": "VMS-2026-001-ABC123",
+      "deviceId": "dev001",
+      "deviceName": "Main Gate Scanner",
+      "zoneId": "zone001",
+      "zoneName": "Reception & Lobby",
+      "accessResult": "granted",
+      "timestamp": "2026-02-22T10:05:00Z",
+      "reason": "Valid pass - template verified"
+   },
+   {
+      "id": "scan002",
+      "visitorId": "vis001",
+      "visitorName": "David Chen",
+      "barcodeId": "VMS-2026-001-ABC123",
+      "deviceId": "dev007",
+      "deviceName": "Meeting Room Block A Entry",
+      "zoneId": "zone006",
+      "zoneName": "Meeting Rooms Block A",
+      "accessResult": "granted",
+      "timestamp": "2026-02-22T10:08:00Z",
+      "reason": "Valid pass - template verified"
+   },
+   {
+      "id": "scan003",
+      "visitorId": "vis003",
+      "visitorName": "Michael Torres",
+      "barcodeId": "VMS-2026-003-DEF456",
+      "deviceId": "dev001",
+      "deviceName": "Main Gate Scanner",
+      "zoneId": "zone001",
+      "zoneName": "Reception & Lobby",
+      "accessResult": "granted",
+      "timestamp": "2026-02-22T08:10:00Z",
+      "reason": "Valid pass - contractor template"
+   },
+   {
+      "id": "scan004",
+      "visitorId": "vis003",
+      "visitorName": "Michael Torres",
+      "barcodeId": "VMS-2026-003-DEF456",
+      "deviceId": "dev005",
+      "deviceName": "Executive Elevator",
+      "zoneId": "zone004",
+      "zoneName": "Floor 3 - Executive",
+      "accessResult": "denied",
+      "timestamp": "2026-02-22T09:25:00Z",
+      "reason": "Zone not in access template"
+   },
+   {
+      "id": "scan005",
+      "visitorId": "vis006",
+      "visitorName": "Emma Davis",
+      "barcodeId": "VMS-2026-006-JKL012",
+      "deviceId": "dev001",
+      "deviceName": "Main Gate Scanner",
+      "zoneId": "zone001",
+      "zoneName": "Reception & Lobby",
+      "accessResult": "granted",
+      "timestamp": "2026-02-21T10:08:00Z",
+      "reason": "Valid pass"
+   },
+   {
+      "id": "scan006",
+      "visitorId": "vis006",
+      "visitorName": "Emma Davis",
+      "barcodeId": "VMS-2026-006-JKL012",
+      "deviceId": "dev001",
+      "deviceName": "Main Gate Scanner",
+      "zoneId": "zone001",
+      "zoneName": "Reception & Lobby",
+      "accessResult": "granted",
+      "timestamp": "2026-02-21T14:52:00Z",
+      "reason": "Exit scan"
+   }
+]

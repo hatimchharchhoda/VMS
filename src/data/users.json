@@ -1,4 +1,76 @@
 [
-  { "id": 1, "name": "Admin User", "role": "admin" },
-  { "id": 2, "name": "Visitor User", "role": "visitor" }
+  {
+    "id": "u001",
+    "name": "Super Admin",
+    "email": "admin@enterprise.com",
+    "password": "admin123",
+    "role": "admin",
+    "department": "IT Security",
+    "phone": "+1-555-0100",
+    "avatar": "SA",
+    "createdAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "u002",
+    "name": "Alice Johnson",
+    "email": "host1@enterprise.com",
+    "password": "host123",
+    "role": "host",
+    "department": "Engineering",
+    "phone": "+1-555-0101",
+    "avatar": "AJ",
+    "createdAt": "2024-01-15T00:00:00Z"
+  },
+  {
+    "id": "u003",
+    "name": "Bob Martinez",
+    "email": "host2@enterprise.com",
+    "password": "host123",
+    "role": "host",
+    "department": "HR",
+    "phone": "+1-555-0102",
+    "avatar": "BM",
+    "createdAt": "2024-02-01T00:00:00Z"
+  },
+  {
+    "id": "u004",
+    "name": "Carol Smith",
+    "email": "host3@enterprise.com",
+    "password": "host123",
+    "role": "host",
+    "department": "Finance",
+    "phone": "+1-555-0103",
+    "avatar": "CS",
+    "createdAt": "2024-02-15T00:00:00Z"
+  },
+  {
+    "id": "v001",
+    "name": "David Chen",
+    "email": "visitor1@gmail.com",
+    "password": "visitor123",
+    "role": "visitor",
+    "department": "TechCorp Inc.",
+    "phone": "+1-555-0201",
+    "avatar": "DC",
+    "createdAt": "2024-03-01T00:00:00Z",
+    "company": "TechCorp Inc.",
+    "reputationScore": 92,
+    "riskScore": 8,
+    "totalVisits": 6
+  },
+  {
+    "id": "v002",
+    "name": "Sarah Williams",
+    "email": "visitor2@gmail.com",
+    "password": "visitor123",
+    "role": "visitor",
+    "department": "VendorCo Ltd.",
+    "phone": "+1-555-0202",
+    "avatar": "SW",
+    "createdAt": "2024-03-10T00:00:00Z",
+    "company": "VendorCo Ltd.",
+    "reputationScore": 78,
+    "riskScore": 22,
+    "totalVisits": 3
+  }
 ]

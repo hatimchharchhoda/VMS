@@ -1,0 +1,172 @@
+[
+   {
+      "id": "tpl001",
+      "name": "Contractor Access",
+      "color": "#f59e0b",
+      "icon": "🔧",
+      "description": "Full day access to Floor 1 and loading dock for contractors",
+      "allowedZones": [
+         "zone001",
+         "zone002",
+         "zone007"
+      ],
+      "allowedDevices": [
+         "dev001",
+         "dev002",
+         "dev003",
+         "dev008"
+      ],
+      "timeRestrictions": {
+         "startTime": "06:00",
+         "endTime": "20:00",
+         "daysAllowed": [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat"
+         ]
+      },
+      "maxDuration": 480,
+      "autoExpiry": true,
+      "visitorCategory": "contractor",
+      "requiresEscort": false,
+      "createdAt": "2024-01-01T00:00:00Z"
+   },
+   {
+      "id": "tpl002",
+      "name": "Interview Candidate",
+      "color": "#3b82f6",
+      "icon": "🤝",
+      "description": "Reception and meeting rooms only for interview purposes",
+      "allowedZones": [
+         "zone001",
+         "zone006"
+      ],
+      "allowedDevices": [
+         "dev001",
+         "dev002",
+         "dev007"
+      ],
+      "timeRestrictions": {
+         "startTime": "08:00",
+         "endTime": "18:00",
+         "daysAllowed": [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri"
+         ]
+      },
+      "maxDuration": 240,
+      "autoExpiry": true,
+      "visitorCategory": "candidate",
+      "requiresEscort": false,
+      "createdAt": "2024-01-01T00:00:00Z"
+   },
+   {
+      "id": "tpl003",
+      "name": "Vendor / Supplier",
+      "color": "#8b5cf6",
+      "icon": "📦",
+      "description": "Loading dock and store room access for vendors",
+      "allowedZones": [
+         "zone001",
+         "zone007"
+      ],
+      "allowedDevices": [
+         "dev001",
+         "dev008"
+      ],
+      "timeRestrictions": {
+         "startTime": "07:00",
+         "endTime": "15:00",
+         "daysAllowed": [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri"
+         ]
+      },
+      "maxDuration": 180,
+      "autoExpiry": true,
+      "visitorCategory": "vendor",
+      "requiresEscort": true,
+      "createdAt": "2024-01-01T00:00:00Z"
+   },
+   {
+      "id": "tpl004",
+      "name": "VIP Guest",
+      "color": "#ec4899",
+      "icon": "⭐",
+      "description": "Full executive floor access for VIP guests",
+      "allowedZones": [
+         "zone001",
+         "zone002",
+         "zone003",
+         "zone004",
+         "zone006"
+      ],
+      "allowedDevices": [
+         "dev001",
+         "dev002",
+         "dev003",
+         "dev004",
+         "dev005",
+         "dev007"
+      ],
+      "timeRestrictions": {
+         "startTime": "07:00",
+         "endTime": "22:00",
+         "daysAllowed": [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat",
+            "Sun"
+         ]
+      },
+      "maxDuration": 720,
+      "autoExpiry": true,
+      "visitorCategory": "vip",
+      "requiresEscort": false,
+      "createdAt": "2024-01-01T00:00:00Z"
+   },
+   {
+      "id": "tpl005",
+      "name": "General Visitor",
+      "color": "#10b981",
+      "icon": "👤",
+      "description": "Standard visitor access - lobby and meeting rooms",
+      "allowedZones": [
+         "zone001",
+         "zone006"
+      ],
+      "allowedDevices": [
+         "dev001",
+         "dev002",
+         "dev007"
+      ],
+      "timeRestrictions": {
+         "startTime": "09:00",
+         "endTime": "17:00",
+         "daysAllowed": [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri"
+         ]
+      },
+      "maxDuration": 120,
+      "autoExpiry": true,
+      "visitorCategory": "general",
+      "requiresEscort": false,
+      "createdAt": "2024-01-01T00:00:00Z"
+   }
+]
